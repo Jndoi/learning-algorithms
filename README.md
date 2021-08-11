@@ -61,3 +61,39 @@ def backtrack(路径, 选择列表):
 ```
 
 核心部分：for 循环里面的递归，在递归调用之前「做选择」，在递归调用之后「撤销选择」
+
+## Day 3 BFS 算法解题套路框架
+DFS 算法就是回溯算法
+
+问题的本质就是让你在一幅「图」中找到从起点 start 到终点 target 的最近距离。BFS 找到的路径一定是最短的，但代价就是空间复杂度比 DFS 大很多
+```java
+// 计算从起点 start 到终点 target 的最近距离
+int BFS(Node start, Node target) {
+    Queue<Node> q; // 核心数据结构
+    Set<Node> visited; // 避免走回头路
+    
+    q.offer(start); // 将起点加入队列
+    visited.add(start);
+    int step = 0; // 记录扩散的步数
+
+    while (q not empty) {
+        int sz = q.size();
+        /* 将当前队列中的所有节点向四周扩散 */
+        for (int i = 0; i < sz; i++) {
+            Node cur = q.poll();
+            /* 划重点：这里判断是否到达终点 */
+            if (cur is target)
+                return step;
+            /* 将 cur 的相邻节点加入队列 */
+            for (Node x : cur.adj())
+                if (x not in visited) {
+                    q.offer(x);
+                    visited.add(x);
+                }
+        }
+        /* 划重点：更新步数在这里 */
+        step++;
+    }
+}
+
+```
