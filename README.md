@@ -69,6 +69,7 @@ DFS 算法就是回溯算法
 ```java
 // 计算从起点 start 到终点 target 的最近距离
 int BFS(Node start, Node target) {
+    
     Queue<Node> q; // 核心数据结构
     Set<Node> visited; // 避免走回头路
     
@@ -80,14 +81,14 @@ int BFS(Node start, Node target) {
         int sz = q.size();
         /* 将当前队列中的所有节点向四周扩散 */
         for (int i = 0; i < sz; i++) {
-            Node cur = q.poll();
+            Node cur = q.poll();  // 将首个元素从队列中弹出
             /* 划重点：这里判断是否到达终点 */
             if (cur is target)
                 return step;
-            /* 将 cur 的相邻节点加入队列 */
+            /* 将 cur 的相邻节点（子节点）加入队列 */
             for (Node x : cur.adj())
                 if (x not in visited) {
-                    q.offer(x);
+                    q.offer(x); // 将相邻（子）元素加入队列
                     visited.add(x);
                 }
         }
