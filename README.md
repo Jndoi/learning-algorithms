@@ -219,3 +219,23 @@ dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])  // 不动 卖出
 dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])  // 不动 买入
 
 ```
+
+## Day 7 链表逆序
+
+1->2->3->4
+
+4->3->2->1
+
+```java
+public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode nextTemp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextTemp;
+        }
+        return prev;
+    }
+```
